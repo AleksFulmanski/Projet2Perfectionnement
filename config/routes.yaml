@@ -5,3 +5,7 @@ app_list:
 app_show:
   path: /article/{slug}
   controller: App\Controller\ArticleController::show
+
+app_form:
+  path: /article
+  controller: App\Controller\FormController::newForm
