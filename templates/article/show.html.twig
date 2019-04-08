@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <h1>{{ article.title }}</h1>
+    <p>{{ article.content }}</p>
+    <a href="{{ path('app_list') }}" class="btn btn-outline-primary">Retourner à la liste d'articles</a>
+
+{% endblock %}
