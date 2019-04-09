@@ -87,7 +87,6 @@ class FormController extends AbstractController
             ]);
         }
 
-
         //renvoi à la vue
         return $this->render(
             "article/update.html.twig",
@@ -95,5 +94,19 @@ class FormController extends AbstractController
             ['editForm' => $form->createView()
             ]
         );
+    }
+
+    /**
+     * @Route("/article/{slug}/suppression", name="article_delete")
+     * @param Article $article
+     * @return Response
+     */
+    public function delete(Article $article): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $entityManager->remove($article);
+        $entityManager->flush();
+        return $this->redirectToRoute('app_list');
     }
 }

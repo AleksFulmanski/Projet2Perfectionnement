@@ -6,6 +6,6 @@
     <p>{{ article.content }}</p>
     <a href="{{ path('app_list') }}" class="btn btn-outline-primary">Retourner à la liste d'articles</a>
     <a href="{{ path('article_update', {slug: article.slug}) }}" class="btn btn-outline-primary">Modifier l'article</a>
-
+    <a href="{{ path('article_delete', {slug: article.slug}) }}" class="btn btn-outline-primary">Supprimer l'article</a>
 
 {% endblock %}

@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
  */
@@ -21,7 +22,7 @@ class Article
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(
      * min = 10,
-     * max = 50,
+     * max = 255,
      * minMessage = "Le titre doit comporter au moins {{ limit }} caractères",
      * maxMessage = "Le titre doit comporter moins de {{ limit }} caractères"
      * )
@@ -61,6 +62,7 @@ class Article
 
     /**
      * @ORM\Column(type="boolean")
+     * @Assert\Type(type="bool")
      */
     private $isPublished;
 
