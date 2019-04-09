@@ -10,10 +10,14 @@ app_about:
   path: /about
   controller: App\Controller\HomeController::about
 
-app_contact:
-  path: /contact
-  controller: App\Controller\HomeController::contact
+app_article:
+  path: /article
+  controller: App\Controller\FormController::newForm
 
 app_blog:
   path: /blog
   controller: App\Controller\HomeController::blog
+
+app_contact:
+  path: /contact
+  controller: App\Controller\HomeController::contact

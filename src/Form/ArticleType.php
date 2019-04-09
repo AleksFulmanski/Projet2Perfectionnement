@@ -24,13 +24,11 @@ class ArticleType extends AbstractType
             ->add('imageAlt', null, [
                 'label' => 'Description de l\'image'
             ])
-            ->add('slug')
+            //->add('slug')
             ->add('isPublished', null, [
                 'label' => 'Article publié'
             ])
-            ->add('createdAt', null, [
-                'label' => 'Article publié le'
-            ])
+
             /*->add('create', SubmitType:: class, [
                 "label" => "Créer l’article",
                 "attr" =>["class"=>"btn-success"]
