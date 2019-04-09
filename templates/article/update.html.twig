@@ -4,6 +4,19 @@
 
         <h1>Modification d'un article</h1>
 
+        {{ form_start(editForm) }}
+        {{ form_widget(editForm) }}
+
+        <div class="form-group row">
+                <div class="col-sm-2">
+
+                </div>
+                <div class="col-sm-10">
+                        <button type="submit" class="btn-success btn">Modifier l’article</button>
+                </div>
+        </div>
+
+        {{ form_end(editForm) }}
 
 {% endblock %}
 

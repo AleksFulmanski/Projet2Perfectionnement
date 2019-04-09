@@ -60,12 +60,40 @@ class FormController extends AbstractController
     /**
      * @Route("/article/{slug}/edit", name="article_update")
      * @param Article $article
+     * @param Request $request
      * @return Response
      */
-    public function edit(Article $article): Response
+    public function edit(Article $article, Request $request): Response
     {
-        var_dump($article);
+        //récupération du formulaire qui est déja crée dans ArticleType
+        $form = $this->createForm(ArticleType::class, $article);
 
-        return $this->render("article/update.html.twig");
+
+
+        //on "remplit" le formulaire avec des données postées
+        $form->handleRequest($request);
+
+        //on vérifie si le formulaire est soumis et ses valeurs sont valides
+        if ($form->isSubmitted() && $form->isValid()) {
+            //récupération de manager
+            $entityManager = $this->getDoctrine()->getManager();
+
+            //insertion de l'article dans la BDD
+            $entityManager->flush(); //Exécution de SQL
+
+            $this->addFlash('success', 'Votre article a bien été modifié !');
+            //return $this->redirectToRoute('app_list');
+            return $this->redirectToRoute('app_show', ['slug'=> $article->getSlug()
+            ]);
+        }
+
+
+        //renvoi à la vue
+        return $this->render(
+            "article/update.html.twig",
+            //on affiche le nouveau formulaire dans une vue Twig
+            ['editForm' => $form->createView()
+            ]
+        );
     }
 }
