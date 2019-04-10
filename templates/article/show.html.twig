@@ -4,6 +4,26 @@
 {% block body %}
     <h1>{{ article.title }}</h1>
     <p>{{ article.content }}</p>
+
+    <h2>Ajouter un commentaire</h2>
+    {{ form_start(commentForm) }}
+    {{ form_widget(commentForm.content) }}
+    {{ form_errors(commentForm.content) }}
+    <input type="submit" value="Publier" class="btn btn-block btn-success">
+    {{ form_end(commentForm) }}
+
+
+    <h2>Commentaires</h2>
+
+    {% for comment in article.comments %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                {{ comment.content }}
+            </div>
+        </div>
+
+    {% endfor %}
+
     <a href="{{ path('app_list') }}" class="btn btn-outline-primary">Retourner à la liste d'articles</a>
     <a href="{{ path('article_update', {slug: article.slug}) }}" class="btn btn-outline-primary">Modifier l'article</a>
     <a href="{{ path('article_delete', {slug: article.slug}) }}" class="btn btn-outline-primary">Supprimer l'article</a>

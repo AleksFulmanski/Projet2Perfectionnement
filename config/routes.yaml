@@ -5,6 +5,7 @@ app_list:
 app_show:
   path: /article/{slug}
   controller: App\Controller\ArticleController::show
+  methods: GET|POST
 
 app_about:
   path: /about

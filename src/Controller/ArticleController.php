@@ -4,7 +4,10 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Comment;
+use App\Form\CommentFrontType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ArticleController extends AbstractController
@@ -25,21 +28,43 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @param string $slug
+     * @param Article $article
+     * @param Request $request
      * @return Response
      */
-    public function show(string $slug):Response
+    public function show(Article $article, Request $request): Response
     {
-        // Récupération du Repository
-        $repository = $this->getDoctrine()
-            ->getRepository(Article::class);
+        //création du formulaire pour commentaires
 
-        // Récupération de tous les articles
-        $article = $repository->findOneBy(['slug' => $slug]);
+        $newComment = new Comment(); //nouveau commentaire
+        $newComment->setArticle($article); //on attache le commentaire à l'article
 
-        // Renvoi des articles à la vue
+        $commentForm = $this->createForm(CommentFrontType::class, $newComment);
 
-        return $this->render('article/show.html.twig', ['article' => $article
+        $commentForm->handleRequest($request);
+
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($newComment);
+            $entityManager->flush();
+
+            $newComment = new Comment();
+            $newComment->setArticle($article);
+            $commentForm = $this->createForm(CommentFrontType::class, $newComment);
+
+            // Récupération du Repository
+            //$repository = $this->getDoctrine()
+            //->getRepository(Article::class);
+
+            // Récupération de tous les articles
+            //$article = $repository->findOneBy(['slug' => $slug]);
+
+            // Renvoi des articles à la vue
+
+
+        }
+        return $this->render('article/show.html.twig', ['article' => $article,
+            'commentForm' => $commentForm->createView()
         ]);
     }
 }
