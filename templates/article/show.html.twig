@@ -5,6 +5,14 @@
     <h1>{{ article.title }}</h1>
     <p>{{ article.content }}</p>
 
+    <div id="likes">
+        <span>{{ article.likes }}</span>
+        <button class="btn btn-outline-primary" data-slug="{{ article.slug }}">
+            <i class="fas fa-thumbs-up"></i>
+        </button>
+
+    </div>
+
     <h2>Ajouter un commentaire</h2>
     {{ form_start(commentForm) }}
     {{ form_widget(commentForm.content) }}
@@ -25,7 +33,16 @@
     {% endfor %}
 
     <a href="{{ path('app_list') }}" class="btn btn-outline-primary">Retourner à la liste d'articles</a>
+
+        {% if is_granted('ROLE_MODERATEUR') %}
     <a href="{{ path('article_update', {slug: article.slug}) }}" class="btn btn-outline-primary">Modifier l'article</a>
     <a href="{{ path('article_delete', {slug: article.slug}) }}" class="btn btn-outline-primary">Supprimer l'article</a>
+        {% endif %}
 
+
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script src="{{ asset('js/ajax-article-likes.js') }}"></script>
 {% endblock %}

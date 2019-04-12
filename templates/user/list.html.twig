@@ -6,6 +6,7 @@
 
     {% for user in users %}
      <li>{{ user.username }}</li>
+        <a href="{{ path('app_user_editrole', {id: user.id}) }}">Modifier le rôle</a>
     {% endfor %}
 
 {% endblock %}

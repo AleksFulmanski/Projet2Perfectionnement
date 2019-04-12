@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Changement du rôle : {{ user.username }}</h1>
+
+    {{  form_start(editForm) }}
+    {{  form_widget(editForm) }}
+    <input type="submit" class="btn btn-primary form-control" value="Modifier">
+    {{  form_end(editForm) }}
+
+{% endblock %}

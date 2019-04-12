@@ -3,9 +3,8 @@ security:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
-        ROLE ACHETEUR: ROLE_USER
-        ROLE VENDEUR: ROLE_USER
-        ROLE_MODERATEUR: [ROLE ACHETEUR, ROLE_VENDEUR]
+        ROLE_REDACTEUR: ROLE_USER
+        ROLE_MODERATEUR: ROLE_REDACTEUR
         ROLE_ADMIN: ROLE_MODERATEUR
 
     providers:
