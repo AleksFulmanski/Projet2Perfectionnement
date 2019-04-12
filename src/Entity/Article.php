@@ -10,6 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
+ * @Gedmo\Uploadable(path="/article")
  */
 class Article
 {
@@ -48,6 +49,7 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Gedmo\UploadableFilePath
      */
     private $imageSrc;
 
