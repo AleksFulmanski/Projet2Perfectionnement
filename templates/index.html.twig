@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    <title>Le blog super cool!</title>
+    <title>Le blog super cool et notre liste d'articles!</title>
 {% endblock %}
 
 {% block css %}
@@ -13,9 +13,14 @@
 {% block body %}
     <h1>Welcome to the most awesome blog ever!</h1>
     <ul>
-        {% for article in articles %}
+        {% for article in pagination %}
             <li>{{ article.title }}</li>
             <a href="{{ path('app_show', {slug: article.slug}) }}" class="btn btn-outline-primary">Lire</a>
         {% endfor %}
     </ul>
+
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+
 {% endblock %}

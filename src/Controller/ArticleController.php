@@ -6,26 +6,39 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Entity\Comment;
 use App\Form\CommentFrontType;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ArticleController extends AbstractController
 {
-    public function list(): Response
+    /**
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * @return Response
+     */
+    public function list(Request $request, PaginatorInterface $paginator): Response
     {
-        // Récupération du Repository
-        $repository = $this->getDoctrine()
-            ->getRepository(Article::class);
 
-        // Récupération de tous les articles
-        $articles = $repository->findAll();
+        $em    = $this->getDoctrine()->getManager();
+        $dql   = "SELECT a FROM App\Entity\Article a";
+        $query = $em->createQuery($dql);
 
-        // Renvoi des articles à la vue
+        //$paginator  = $this->get('knp_paginator');
+            $pagination = $paginator->paginate(
+                $query, /* query NOT result */
+                $request->query->getInt('page', 1), /*page number*/
+                9
+            );/*limit per page*/
+
         return $this->render('index.html.twig', [
-            'articles' => $articles
+            'pagination' => $pagination
+
         ]);
     }
+
+
 
     /**
      * @param Article $article
@@ -60,8 +73,6 @@ class ArticleController extends AbstractController
             //$article = $repository->findOneBy(['slug' => $slug]);
 
             // Renvoi des articles à la vue
-
-
         }
         return $this->render('article/show.html.twig', ['article' => $article,
             'commentForm' => $commentForm->createView()
