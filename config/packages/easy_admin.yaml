@@ -1,5 +1,9 @@
 easy_admin:
+    site_name: 'Hamac Corporation'
     entities:
-        - App\Entity\Article
-        - App\Entity\Comment
+        Article:
+            class: App\Entity\Article
+        Comment:
+            class: App\Entity\Comment
+
 
